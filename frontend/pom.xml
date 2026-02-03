@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+
+    <groupId>com.datacentric</groupId>
+    <artifactId>timesense-frontend</artifactId>
+    <version>${revision}${sha1}${changelist}</version>
+    <name>TimeSense Platform Frontend</name>
+    <description>TimeSense Platform Frontend</description>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.4.0</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>.next</directory>
+                            <includes>
+                                <include>**</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                        <fileset>
+                            <directory>coverage</directory>
+                            <includes>
+                                <include>**</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <!-- build the react frontend application -->
+                        <id>validate-frontend</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>npm</executable>
+                            <arguments>
+                                <argument>run</argument>
+                                <argument>lint</argument>
+                            </arguments>
+                            <workingDirectory>${basedir}</workingDirectory>
+                            <environmentVariables>
+                                <OIDC_TYPE>keycloak</OIDC_TYPE>
+                            </environmentVariables>
+                            <inheritIo>true</inheritIo>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <!-- build the react frontend application -->
+                        <id>compile-frontend</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>npm</executable>
+                            <arguments>
+                                <argument>run</argument>
+                                <argument>build</argument>
+                            </arguments>
+                            <workingDirectory>${basedir}</workingDirectory>
+                            <environmentVariables>
+                                <OIDC_TYPE>keycloak</OIDC_TYPE>
+                            </environmentVariables>
+                            <inheritIo>true</inheritIo>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <!-- test the react frontend application -->
+                        <id>test-frontend</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>npm</executable>
+                            <arguments>
+                                <argument>run</argument>
+                                <argument>coverage</argument>
+                            </arguments>
+                            <skip>${skipTests}</skip>
+                            <workingDirectory>${basedir}</workingDirectory>
+                            <inheritIo>true</inheritIo>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

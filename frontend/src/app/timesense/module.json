@@ -1,0 +1,237 @@
+{
+    "id": "timesense",
+    "name": "TimeSense Platform",
+    "description": "TimeSense Platform",
+    "url": "/timesense",
+    "default_page": "time-records",
+    "priority": 1,
+    "submenu": [
+        {
+            "id": 1,
+            "name": "Time Records",
+            "page": "time-records",
+            "icon": "work_history",
+            "permissions": [
+                "User"
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Absences",
+            "page": "absences",
+            "icon": "edit_calendar",
+            "permissions": [
+                "User"
+            ]
+        },
+        {
+            "id": 14,
+            "name": "Absences Management",
+            "page": "absences-management",
+            "icon": "edit_calendar",
+            "is_clickable": false,
+            "permissions": [
+                "User"
+            ], "submenu": [
+                {
+                    "id": 15,
+                    "name": "Global Users Absences",
+                    "page": "global-absences",
+                    "icon": "edit_calendar",
+                    "permissions": [
+                        "User"
+                    ]
+                },
+                {
+                    "id": 17,
+                    "name": "Absences Approval",
+                    "page": "timeoff-management",
+                    "icon": "free_cancellation",
+                    "permissions": [
+                        "Manager"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Project Management",
+            "page": "project-management",
+            "icon": "fact_check",
+            "is_clickable": false,
+            "permissions": [
+                "User"
+            ],
+            "submenu": [
+                {
+                    "id": 5,
+                    "name": "Projects",
+                    "page": "projects",
+                    "icon": "fact_check",
+                    "permissions": [
+                        "User"
+                    ]
+                },
+                {
+                    "id": 6,
+                    "name": "Project Assigment",
+                    "page": "project-assignment",
+                    "icon": "fact_check",
+                    "permissions": [
+                        "Manager"
+                    ]
+                },
+                {
+                    "id": 18,
+                    "name": "Time Records Approval",
+                    "page": "time-records-management",
+                    "icon": "fact_check",
+                    "permissions": [
+                        "Manager"
+                    ]
+                },
+                {
+                    "id": 24,
+                    "name": "General Time Records",
+                    "page": "general-time-records",
+                    "icon": "fact_check",
+                    "permissions": [
+                        "Manager"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "name": "Security",
+            "page": "security",
+            "icon": "security",
+            "is_clickable": false,
+            "permissions": [
+                "User"
+            ],
+            "submenu": [
+                {
+                    "id": 8,
+                    "name": "Users",
+                    "page": "users",
+                    "icon": "person",
+                    "permissions": [
+                        "Manager"
+                    ]
+                },
+                {
+                    "id": 9,
+                    "name": "Roles",
+                    "page": "roles",
+                    "icon": "group",
+                    "permissions": [
+                        "Manager"
+                    ]
+                },
+                {
+                    "id": 10,
+                    "name": "User Groups",
+                    "page": "user-groups",
+                    "icon": "group",
+                    "permissions": [
+                        "Manager"
+                    ]
+                },
+                {
+                    "id": 11,
+                    "name": "User Permissions",
+                    "page": "user-permissions",
+                    "icon": "shield",
+                    "permissions": [
+                        "User"
+                    ]
+                },
+                {
+                    "id": 12,
+                    "name": "System Permissions",
+                    "page": "system-permissions",
+                    "icon": "add_moderator",
+                    "permissions": [
+                        "Admin"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 20,
+            "name": "System Settings",
+            "page": "system-settings",
+            "icon": "widgets",
+            "is_clickable": false,
+            "permissions": [
+                "Manager"
+            ],
+            "submenu": [
+                {
+                    "id": 21,
+                    "name": "General Settings",
+                    "page": "system-settings",
+                    "icon": "settings_applications",
+                    "permissions": [
+                        "Admin"
+                    ]
+                },
+                {
+                    "id": 16,
+                    "name": "Holidays",
+                    "page": "holidays",
+                    "icon": "business_center",
+                    "permissions": [
+                        "Manager"
+                    ]
+                },
+                {
+                    "id": 23,
+                    "name": "Project Tasks",
+                    "page": "project-tasks",
+                    "icon": "task",
+                    "permissions": [
+                        "Manager"
+                    ]
+                },
+                {
+                    "id": 4,
+                    "name": "Project Types",
+                    "page": "project-types",
+                    "icon": "fact_check",
+                    "permissions": [
+                        "Manager"
+                    ]
+                },
+                {
+                    "id": 22,
+                    "name": "Absence Sub Types",
+                    "page": "absence-sub-types",
+                    "icon": "fact_check",
+                    "permissions": [
+                        "Admin"
+                    ]
+                },
+                {
+                    "id": 13,
+                    "name": "Clients",
+                    "page": "clients",
+                    "icon": "business_center",
+                    "permissions": [
+                        "Admin"
+                    ]
+                },
+                {
+                    "id": 19,
+                    "name": "Job Titles",
+                    "page": "job-titles",
+                    "icon": "assignment_ind",
+                    "permissions": [
+                        "Admin"
+                    ]
+                }
+            ]
+        }
+    ]
+}

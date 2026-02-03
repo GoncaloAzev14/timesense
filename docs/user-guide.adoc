@@ -1,0 +1,65 @@
+:doctype: book
+:toc:
+:toc-title: Table of Contents
+:toclevels: 4
+:source-highlighter: rouge
+:autofit-option:
+:icons: font
+:note-caption: Nota
+
+= User Guide
+
+The TimeSense application supports the time management of the company teams.
+
+In this document you will find the information needed to use TimeSense in your
+daily work. The document covers the following topics:
+
+* Getting Started
+* Registering Absences
+* Registering weekly activity
+* Manegerial Activities
+
+== Getting Started
+
+TimeSense is integrated with the azure single sign-on system. To login just access
+the main page and login.
+
+You will be redirected to the azure login page. Enter your credentials if necessary
+and the system will automatically redirect you to the proper page according to
+your role.
+
+== Registering Absences
+
+To register an absence, you need to access the absence page. You can do this by
+clicking on the "Absences" link in the menu. Once you are on the absence page, you
+will see a list of your absences. To register a new absence, click on the "Register
+Absence" button. Select an interval of days and click create... Your absence
+will need to be approved by your line manager.
+
+You are limited in how many work days you can register for absences in either
+approved or pending status.
+
+== Registering Weekly Activity
+
+To register your weekly activity, you need to access the Time Reports page.
+In that page you will fill how many hours you have worked in each project per day.
+
+By default, the system will show you lines for projects where you have registered
+time in the last 2 weeks. You can add new lines by clicking on the "Add Project" button.
+
+Cells are highlighted in different colors depending on the approval status by the
+respective project manager:
+
+* Green: Approved
+* Light Blue: Pending
+* Red: Rejected
+* Yellow: Not submitted yet
+
+== Managerial Activities
+
+=== Approving Absences
+
+
+=== Approving Weekly Activity
+
+

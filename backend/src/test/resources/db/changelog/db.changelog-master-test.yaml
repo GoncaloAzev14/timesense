@@ -1,0 +1,34 @@
+databaseChangeLog:
+    # Release 1.0.0
+    - include:
+          file: db/changelog/postgresql/001_create_users.sql
+    - include:
+          file: db/changelog/postgresql/002_general_app_settings.sql
+    - include:
+          file: db/changelog/postgresql/003_create_time_management.sql
+    - include:
+          file: db/changelog/postgresql/004_create_absence_management.sql
+    - include:
+          file: db/changelog/postgresql/005_create_permissions_model.sql
+    - include:
+          file: db/changelog/postgresql/006_user_role_associations.sql
+    - include:
+          file: db/changelog/postgresql/007_initial_data.sql
+    - include:
+          file: db/changelog/postgresql/008_user_changes.sql
+    - include:
+          file: db/changelog/postgresql/009_job_titles.sql
+    - include:
+          file: db/changelog/postgresql/010_update_status.sql
+    - include:
+          file: db/changelog/postgresql/011_deny_reason.sql
+    - include:
+          file: db/changelog/postgresql/012_create_system_settings.sql
+    - include:
+          file: db/changelog/postgresql/013_create_absence_sub_type.sql
+    - include:
+          file: db/changelog/postgresql/014_current_year_setting.sql
+    - include:
+          file: db/changelog/postgresql/015_create_project_tasks.sql
+    - include:
+          file: db/changelog/postgresql/016_alter_time_records.sql

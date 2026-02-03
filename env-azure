@@ -1,0 +1,20 @@
+
+# Authentication
+OIDC_TYPE=azure
+OIDC_TENANT_ID=cbec2b1e-5cab-4ac1-961e-ecb1ae536482
+OIDC_CLIENT_ID=68c58297-3093-4e25-bbe7-52d7753f34ac
+OIDC_CLIENT_SECRET=YC68Q~23tQujuB2RjGbcjL~Zpe6yXDqrKfD.UcIQ
+OIDC_ISSUER=https://login.microsoftonline.com/cbec2b1e-5cab-4ac1-961e-ecb1ae536482/oauth2/v2.0
+OIDC_KEYS_URI=https://login.microsoftonline.com/cbec2b1e-5cab-4ac1-961e-ecb1ae536482/discovery/v2.0/keys
+OIDC_JWT_USER_MAPPING_NAME=name
+OIDC_JWT_USER_MAPPING_EMAIL=upn
+
+# Database
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=please
+POSTGRES_DB=timesense_db
+
+# Keycloak
+KEYCLOAK_ADMIN=admin
+KEYCLOAK_ADMIN_PASSWORD=admin
+

@@ -1,0 +1,155 @@
+services:
+    # FRONTEND APP
+    frontend:
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+            args:
+                NPM_USER: ${NPM_USER}
+                NPM_PASSWORD: ${NPM_PASSWORD}
+                NPM_AUTH_TOKEN: ${NPM_AUTH_TOKEN}
+        container_name: frontend
+        ports:
+            - "3000:3000"
+        environment:
+            - OIDC_TYPE=${OIDC_TYPE}
+            - OIDC_CLIENT_ID=${OIDC_CLIENT_ID}
+            - OIDC_TENANT_ID=${OIDC_TENANT_ID}
+            - OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}
+            - OIDC_ISSUER=${OIDC_ISSUER}
+            - NEXTAUTH_URL=${NEXTAUTH_URL:-http://localhost:8888}
+            - NEXTAUTH_SECRET=Art03UMvDY_LSecretThatMustBeSpecificToProduction
+            - NODE_ENV=${NODE_ENV:-development}
+            # Needed for windows to enable hot reload?
+            - WATCHPACK_POLLING=true
+        depends_on:
+            keycloak:
+                condition: service_healthy
+        volumes:
+            - ./frontend:/app
+        entrypoint: ["sh", "/entrypoint.sh"]
+
+    # DB
+    db:
+        container_name: database
+        image: postgres
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_DB: timesense_db
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        volumes:
+            - db_data:/var/lib/postgresql
+            - ./dev_environments/db/scripts/:/docker-entrypoint-initdb.d
+            - ./dev_environments/holidays.csv:/docker-entrypoint-initdb.d/utils/holidays.csv
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+            interval: 10s
+            start_period: 30s
+
+    # nginx
+    app:
+        container_name: nginx
+        image: nginx:stable-alpine
+        command: ["nginx", "-g", "daemon off;"] # forçar o nginx a executar em 1o plano
+        ports:
+            - "8888:80"
+            - "4438:443"
+        expose:
+            - "80"
+            - "443"
+        volumes:
+            - ./nginx.conf:/etc/nginx/conf.d/default.conf
+            # - ./dev_environments/nginx:/certificates
+        depends_on:
+            frontend:
+                condition: service_started
+            backend:
+                condition: service_started
+
+    # Backend
+    backend:
+        container_name: backend
+        image: backend
+        build:
+            context: ./backend
+            dockerfile: Dockerfile
+        environment:
+            - DATABASE_URL=jdbc:postgresql://db:5432/${POSTGRES_DB}
+            - DATABASE_USERNAME=${POSTGRES_USER}
+            - DATABASE_PASSWORD=${POSTGRES_PASSWORD}
+            - APP_LOCALE=pt
+            - OIDC_TYPE=${OIDC_TYPE}
+            - OIDC_CLIENT_ID=${OIDC_CLIENT_ID}
+            - OIDC_TENANT_ID=${OIDC_TENANT_ID}
+            - OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}
+            - OIDC_ISSUER=${OIDC_ISSUER}
+            - OIDC_KEYS_URI=${OIDC_KEYS_URI}
+            - OIDC_JWT_USER_MAPPING_NAME=${OIDC_JWT_USER_MAPPING_NAME}
+            - OIDC_JWT_USER_MAPPING_EMAIL=${OIDC_JWT_USER_MAPPING_EMAIL}
+        depends_on:
+            db:
+                condition: service_healthy
+        volumes:
+            - ./backend/target:/app/lib
+            - ./backend/exec.sh:/app/exec.sh
+            - ./backend/server.sh:/app/server.sh
+            - ./backend/src/main/resources:/app/config
+            - ./dev_environments/config/backend:/app/config
+
+    # keycloak
+    keycloak:
+        container_name: keycloak
+        build:
+            context: ./dev_environments/keycloak
+            dockerfile: Dockerfile
+        ports:
+            - "8080:8080"
+            - "8443:8443"
+            - "9000:9000"
+        environment:
+            - KEYCLOAK_ADMIN=${KEYCLOAK_ADMIN}
+            - KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD}
+            - KC_DB=postgres
+            - KC_DB_URL=jdbc:postgresql://db:5432/keycloak
+            - KC_DB_USERNAME=${POSTGRES_USER}
+            - KC_DB_PASSWORD=${POSTGRES_PASSWORD}
+            - KC_HOSTNAME=keycloak
+            - KC_PROXY_HEADERS=xforwarded
+            - KC_HTTP_RELATIVE_PATH=/keycloak
+            - KC_HOSTNAME_STRICT=false
+            - KC_FEATURES=hostname:v2
+        entrypoint:
+            - /opt/keycloak/bin/kc.sh
+            - start
+            - --import-realm
+            - --http-enabled=true
+            - --health-enabled=true
+        depends_on:
+            - db
+        healthcheck:
+            test: "curl --head --insecure https://localhost:9000/health/ready || exit 1"
+            interval: 10s
+        volumes:
+            - ./dev_environments/keycloak/realms:/opt/keycloak/data/import
+
+    # single use container to automatically create the users if they are not
+    # present in the database. We use the keycloak image because it already has
+    # the necessary tools
+    users-setup:
+        image: alpine/curl
+        environment:
+            - KEYCLOAK_ADMIN=${KEYCLOAK_ADMIN}
+            - KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD}
+        entrypoint:
+            - sh
+            - /setup-users.sh
+        depends_on:
+            keycloak:
+                condition: service_healthy
+        volumes:
+            - ./dev_environments/keycloak/setup-users.sh:/setup-users.sh
+
+volumes:
+    db_data:

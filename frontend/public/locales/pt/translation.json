@@ -1,0 +1,43 @@
+{
+    "welcome": "Bem vindo, {{name}}",
+    "login": "Entrar",
+    "logout": "Sair",
+    "loading": "Carregando...",
+    "unknown_name": "Desconhecido",
+    "rowsPerPage": "Registos por página:",
+    "displayedRows": "{{from}}-{{to}} de {{count}}",
+
+    "January": "Janeiro",
+    "February": "Fevereiro",
+    "March": "Março",
+    "April": "Abril",
+    "May": "Maio",
+    "June": "Junho",
+    "July": "Julho",
+    "August": "Agosto",
+    "September": "Setembro",
+    "October": "Outubro",
+    "November": "Novembro",
+    "December": "Dezembro",
+
+    "Monday": "Segunda-feira",
+    "Tuesday": "Terça-feira",
+    "Wednesday": "Quarta-feira",
+    "Thursday": "Quinta-feira",
+    "Friday": "Sexta-feira",
+    "Saturday": "Sábado",
+    "Sunday": "Domingo",
+
+    "year": "ano",
+    "month": "mês",
+    "day": "dia",
+    "hour": "hora",
+    "minute": "minuto",
+    "second": "segundo",
+
+    "Next Page Question": "Tem {{rows}} registo(s) selecionados. Pretende voltar atrás e realizar alguma ação com os registos selecionados ou continuar e limpar a seleção?",
+    "Selected Rows Detected": "Registos Selectionadas Detetados",
+    "Go Back": "Retroceder",
+    "Continue & Clear": "Continuar"
+
+}
